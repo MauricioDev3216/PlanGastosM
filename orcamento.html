@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamento - Controle de Gastos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen">
+    
+    <!-- Sidebar (igual aos outros) -->
+    <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0">
+        <div class="p-6 bg-gradient-to-r from-indigo-600 to-purple-600">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-2xl font-bold text-white">Menu</h2>
+                <button onclick="toggleSidebar()" class="text-white hover:text-gray-200 lg:hidden">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl">👤</div>
+                <div>
+                    <p id="sidebarUserName" class="text-white font-bold text-sm"></p>
+                    <p id="sidebarUserEmail" class="text-indigo-100 text-xs"></p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="p-4">
+            <a href="prog.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold transition-all duration-300 mb-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                Dashboard
+            </a>
+            <a href="gastos.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold transition-all duration-300 mb-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                </svg>
+                Meus Gastos
+            </a>
+            <a href="graficos.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold transition-all duration-300 mb-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                </svg>
+                Gráficos
+            </a>
+            <a href="calendario.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold transition-all duration-300 mb-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Calendário
+            </a>
+            <a href="orcamento.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 font-semibold transition-all duration-300 mb-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Orçamento
+            </a>
+            <div class="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+            <button onclick="toggleDarkMode()" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold transition-all duration-300 mb-2 w-full">
+                <svg id="darkModeIconSidebar" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path id="moonIconSidebar" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    <path id="sunIconSidebar" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+                <span id="darkModeText">Modo Escuro</span>
+            </button>
+            <button onclick="logout()" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 font-semibold transition-all duration-300 w-full">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                Sair
+            </button>
+        </nav>
+    </div>
+
+    <!-- Botão Menu Mobile -->
+    <button onclick="toggleSidebar()" class="fixed top-4 left-4 z-40 lg:hidden bg-indigo-600 text-white p-3 rounded-xl shadow-lg">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+
+    <!-- Conteúdo Principal -->
+    <div class="lg:ml-64 p-4 lg:p-8">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">Gestão de Orçamento</h1>
+                <p class="text-gray-600 dark:text-gray-300">Planeje e controle seus gastos mensais</p>
+            </div>
+
+            <!-- Orçamento Mensal Global -->
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/40 dark:to-indigo-900/40 rounded-2xl shadow-xl p-8 mb-8 border-2 border-blue-300 dark:border-blue-700">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Orçamento Total Mensal</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Definir Orçamento do Mês</label>
+                        <div class="flex gap-3">
+                            <input type="number" id="totalBudgetInput" placeholder="Ex: 3000.00" step="0.01"
+                                   class="flex-1 border-2 border-blue-300 dark:border-blue-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-lg">
+                            <button onclick="setTotalBudget()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl px-8 py-3 transition-all duration-300 hover:scale-105">
+                                Definir
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 mt-6">
+                            <div>
+                                <p class="text-xs text-gray-600 dark:text-gray-300 font-semibold mb-1">Orçado</p>
+                                <p id="totalBudget" class="text-xl font-bold text-blue-700 dark:text-blue-300">R$ 0,00</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-600 dark:text-gray-300 font-semibold mb-1">Gasto</p>
+                                <p id="totalSpent" class="text-xl font-bold text-orange-700 dark:text-orange-300">R$ 0,00</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-600 dark:text-gray-300 font-semibold mb-1">Restante</p>
+                                <p id="totalRemaining" class="text-xl font-bold text-green-700 dark:text-green-300">R$ 0,00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <p class="text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Progresso do Orçamento</p>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-12 overflow-hidden mb-2">
+                            <div id="totalProgressBar" class="h-full bg-gradient-to-r from-green-500 to-blue-500 transition-all duration-500 flex items-center justify-center text-white font-bold" style="width: 0%">
+                                <span id="totalProgressText"></span>
+                            </div>
+                        </div>
+                        <p id="totalProgressStatus" class="text-sm text-gray-600 dark:text-gray-300 text-center font-medium"></p>
+                        
+                        <canvas id="budgetChart" class="mt-6"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orçamento por Categoria -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Orçamento por Categoria</h2>
+                
+                <div class="space-y-6" id="categoryBudgets"></div>
+            </div>
+
+            <!-- Histórico de Orçamentos -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Histórico de Orçamentos</h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200 dark:border-gray-700">
+                                <th class="text-left py-3 px-4 font-bold text-gray-700 dark:text-gray-300">Mês/Ano</th>
+                                <th class="text-right py-3 px-4 font-bold text-gray-700 dark:text-gray-300">Orçado</th>
+                                <th class="text-right py-3 px-4 font-bold text-gray-700 dark:text-gray-300">Gasto</th>
+                                <th class="text-right py-3 px-4 font-bold text-gray-700 dark:text-gray-300">Diferença</th>
+                                <th class="text-center py-3 px-4 font-bold text-gray-700 dark:text-gray-300">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="budgetHistory"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="orcamento.js"></script>
+</body>
+</html>
