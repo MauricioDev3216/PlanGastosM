@@ -369,15 +369,6 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ---
 
-## 💡 Suporte
-
-Encontrou um bug? Tem uma sugestão? 
-
-- Abra uma [Issue](https://github.com/seu-usuario/controle-gastos/issues)
-- Entre em contato: seu.email@exemplo.com
-
----
-
 <div align="center">
 
 **⭐ Se este projeto foi útil, considere dar uma estrela!**
