@@ -373,6 +373,6 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 **⭐ Se este projeto foi útil, considere dar uma estrela!**
 
-Feito com ❤️ por [Seu Nome](https://github.com/seu-usuario)
+Feito com ❤️ por [Mauricio](https://github.com/MauricioDev3216)
 
 </div>
