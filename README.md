@@ -343,8 +343,8 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 **Seu Nome**
 
-- GitHub: [@seu-usuario](https://github.com/MauricioDev3216)
-- LinkedIn: [Seu Nome](https://linkedin.com/in/maurício-de-campos-148005323)
+- GitHub: [MauricioDev3126](https://github.com/MauricioDev3216)
+- LinkedIn: [Mauricio de Campos](https://linkedin.com/in/maurício-de-campos-148005323)
 - Email: mauriciodecamposhihi@gmail.com
 
 ---
