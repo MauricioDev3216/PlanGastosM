@@ -3,37 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Gastos - Login</title>
+    <title>Gastos Campo - Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .dot {
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        .dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+        .dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen flex items-center justify-center p-4">
+<body class="bg-white min-h-screen flex items-center justify-center p-4">
     
     <div class="w-full max-w-md">
         
         <!-- Logo/Título -->
         <div class="text-center mb-8">
-            <h1 class="text-5xl font-bold text-gray-900 mb-2">💰</h1>
-            <h2 class="text-3xl font-bold text-gray-900">Controle de Gastos</h2>
+            <h1 class="text-5xl font-bold text-black mb-2">💰</h1>
+            <div class="flex items-center justify-center gap-1">
+                <h2 class="text-3xl font-bold text-black">Gastos Campo</h2>
+                <div class="flex gap-1 ml-1">
+                    <span class="dot inline-block w-2 h-2 bg-black rounded-full"></span>
+                    <span class="dot inline-block w-2 h-2 bg-black rounded-full"></span>
+                    <span class="dot inline-block w-2 h-2 bg-black rounded-full"></span>
+                </div>
+            </div>
             <p class="text-gray-600 mt-2">Gerencie suas finanças com inteligência</p>
         </div>
 
         <!-- Card de Login -->
-        <div id="loginCard" class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-200">
-            <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Entrar na sua conta</h3>
+        <div id="loginCard" class="bg-white rounded-2xl shadow-2xl p-8 border-2 border-black">
+            <h3 class="text-2xl font-bold text-black mb-6 text-center">Entrar na sua conta</h3>
             
             <form id="loginForm" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                    <label class="block text-sm font-semibold text-black mb-2">Email</label>
                     <input type="email" id="loginEmail" required
-                           class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                           class="w-full border-2 border-black rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-black"
                            placeholder="seu@email.com">
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Senha</label>
+                    <label class="block text-sm font-semibold text-black mb-2">Senha</label>
                     <input type="password" id="loginPassword" required
-                           class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                           class="w-full border-2 border-black rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-black"
                            placeholder="••••••••">
                 </div>
 
@@ -41,14 +67,14 @@
                 </div>
 
                 <button type="submit" id="loginBtn"
-                        class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold rounded-xl px-6 py-3 transition-all duration-300 hover:scale-105 shadow-lg">
+                        class="w-full bg-black hover:bg-gray-800 text-white font-bold rounded-xl px-6 py-3 transition-all duration-300 hover:scale-105 shadow-lg">
                     Entrar
                 </button>
             </form>
 
             <div class="mt-6 text-center">
                 <p class="text-gray-600">Não tem uma conta? 
-                    <button onclick="showRegisterCard()" class="text-indigo-600 font-bold hover:text-indigo-800">
+                    <button onclick="showRegisterCard()" class="text-black font-bold hover:underline">
                         Cadastre-se
                     </button>
                 </p>
@@ -56,35 +82,35 @@
         </div>
 
         <!-- Card de Cadastro -->
-        <div id="registerCard" class="hidden bg-white rounded-2xl shadow-2xl p-8 border border-gray-200">
-            <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Criar nova conta</h3>
+        <div id="registerCard" class="hidden bg-white rounded-2xl shadow-2xl p-8 border-2 border-black">
+            <h3 class="text-2xl font-bold text-black mb-6 text-center">Criar nova conta</h3>
             
             <form id="registerForm" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nome Completo</label>
+                    <label class="block text-sm font-semibold text-black mb-2">Nome Completo</label>
                     <input type="text" id="registerName" required
-                           class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                           class="w-full border-2 border-black rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-black"
                            placeholder="João Silva">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                    <label class="block text-sm font-semibold text-black mb-2">Email</label>
                     <input type="email" id="registerEmail" required
-                           class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                           class="w-full border-2 border-black rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-black"
                            placeholder="seu@email.com">
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Senha</label>
+                    <label class="block text-sm font-semibold text-black mb-2">Senha</label>
                     <input type="password" id="registerPassword" required minlength="6"
-                           class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                           class="w-full border-2 border-black rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-black"
                            placeholder="Mínimo 6 caracteres">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Confirmar Senha</label>
+                    <label class="block text-sm font-semibold text-black mb-2">Confirmar Senha</label>
                     <input type="password" id="registerPasswordConfirm" required minlength="6"
-                           class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                           class="w-full border-2 border-black rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-black"
                            placeholder="Digite a senha novamente">
                 </div>
 
@@ -95,14 +121,14 @@
                 </div>
 
                 <button type="submit" id="registerBtn"
-                        class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold rounded-xl px-6 py-3 transition-all duration-300 hover:scale-105 shadow-lg">
+                        class="w-full bg-black hover:bg-gray-800 text-white font-bold rounded-xl px-6 py-3 transition-all duration-300 hover:scale-105 shadow-lg">
                     Cadastrar
                 </button>
             </form>
 
             <div class="mt-6 text-center">
                 <p class="text-gray-600">Já tem uma conta? 
-                    <button onclick="showLoginCard()" class="text-indigo-600 font-bold hover:text-indigo-800">
+                    <button onclick="showLoginCard()" class="text-black font-bold hover:underline">
                         Faça login
                     </button>
                 </p>

@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Gastos</title>
+    <title>Dashboard - Gastos Campo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen transition-colors duration-300">
+<body class="bg-black min-h-screen">
     
     <!-- Sidebar -->
-    <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0">
-        <div class="p-6 bg-gradient-to-r from-indigo-600 to-purple-600">
+    <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-zinc-900 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0 border-r border-zinc-800">
+        <div class="p-6 bg-black border-b border-zinc-800">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-2xl font-bold text-white">Menu</h2>
-                <button onclick="toggleSidebar()" class="text-white hover:text-gray-200 lg:hidden">
+                <button onclick="toggleSidebar()" class="text-white hover:text-gray-300 lg:hidden">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -25,60 +25,50 @@
                 <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl">👤</div>
                 <div>
                     <p id="sidebarUserName" class="text-white font-bold text-sm"></p>
-                    <p id="sidebarUserEmail" class="text-indigo-100 text-xs"></p>
+                    <p id="sidebarUserEmail" class="text-gray-400 text-xs"></p>
                 </div>
             </div>
         </div>
 
         <nav class="p-4">
-            <a href="prog.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 font-semibold transition-all duration-300 mb-2">
+            <a href="prog.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-zinc-800 text-white font-semibold transition-all duration-300 mb-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                 </svg>
                 Dashboard
             </a>
 
-            <a href="gastos.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold transition-all duration-300 mb-2">
+            <a href="gastos.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zinc-800 text-gray-300 hover:text-white font-semibold transition-all duration-300 mb-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                 </svg>
                 Meus Gastos
             </a>
 
-            <a href="graficos.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold transition-all duration-300 mb-2">
+            <a href="graficos.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zinc-800 text-gray-300 hover:text-white font-semibold transition-all duration-300 mb-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                 </svg>
                 Gráficos
             </a>
 
-            <a href="calendario.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold transition-all duration-300 mb-2">
+            <a href="calendario.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zinc-800 text-gray-300 hover:text-white font-semibold transition-all duration-300 mb-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
                 Calendário
             </a>
 
-            <a href="orcamento.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold transition-all duration-300 mb-2">
+            <a href="orcamento.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zinc-800 text-gray-300 hover:text-white font-semibold transition-all duration-300 mb-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
                 Orçamento
             </a>
 
-            <div class="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+            <div class="border-t border-zinc-800 my-4"></div>
 
-            <button onclick="toggleDarkMode()" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-indigo-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold transition-all duration-300 mb-2 w-full">
-                <svg id="darkModeIconSidebar" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path id="moonIconSidebar" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                    <path id="sunIconSidebar" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                </svg>
-                <span id="darkModeText">Modo Escuro</span>
-            </button>
-
-            
-
-            <button onclick="logout()" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 font-semibold transition-all duration-300 w-full">
+            <button onclick="logout()" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-900/30 text-red-400 hover:text-red-300 font-semibold transition-all duration-300 w-full">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                 </svg>
@@ -88,68 +78,68 @@
     </div>
 
     <!-- Botão Menu Mobile -->
-    <button onclick="toggleSidebar()" class="fixed top-4 left-4 z-40 lg:hidden bg-indigo-600 text-white p-3 rounded-xl shadow-lg">
+    <button onclick="toggleSidebar()" class="fixed top-4 left-4 z-40 lg:hidden bg-white text-black p-3 rounded-xl shadow-lg">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
     </button>
 
     <!-- Conteúdo Principal -->
-    <div class="lg:ml-64 p-4 lg:p-8 transition-all duration-300">
+    <div class="lg:ml-64 p-4 lg:p-8">
         <div class="max-w-7xl mx-auto">
 
             <!-- Painel de Orçamento -->
-            <div class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/40 dark:to-indigo-900/40 rounded-2xl shadow-xl p-6 mb-6 border-2 border-blue-300 dark:border-blue-700">
+            <div class="bg-zinc-900 rounded-2xl shadow-xl p-6 mb-6 border border-zinc-800">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div class="flex-1">
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Orçamento Mensal</h2>
+                        <h2 class="text-xl font-bold text-white mb-4">Orçamento Mensal</h2>
                         <div class="flex gap-3 mb-4">
                             <input type="number" id="budgetInput" placeholder="Digite seu orçamento mensal" step="0.01"
-                                   class="flex-1 border-2 border-blue-300 dark:border-blue-600 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400">
-                            <button onclick="setBudget()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl px-6 py-2 transition-all duration-300 hover:scale-105">
+                                   class="flex-1 border-2 border-zinc-700 bg-zinc-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-600 text-white placeholder-gray-500">
+                            <button onclick="setBudget()" class="bg-white hover:bg-gray-200 text-black font-semibold rounded-xl px-6 py-2 transition-all duration-300">
                                 Definir
                             </button>
                         </div>
                         <div class="grid grid-cols-3 gap-4">
                             <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-300 font-semibold">Orçamento</p>
-                                <p id="budgetTotal" class="text-2xl font-bold text-blue-700 dark:text-blue-300">R$ 0,00</p>
+                                <p class="text-sm text-gray-400 font-semibold">Orçamento</p>
+                                <p id="budgetTotal" class="text-2xl font-bold text-white">R$ 0,00</p>
                             </div>
                             <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-300 font-semibold">Gasto</p>
-                                <p id="budgetSpent" class="text-2xl font-bold text-orange-700 dark:text-orange-300">R$ 0,00</p>
+                                <p class="text-sm text-gray-400 font-semibold">Gasto</p>
+                                <p id="budgetSpent" class="text-2xl font-bold text-orange-400">R$ 0,00</p>
                             </div>
                             <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-300 font-semibold">Saldo</p>
-                                <p id="budgetRemaining" class="text-2xl font-bold text-green-700 dark:text-green-300">R$ 0,00</p>
+                                <p class="text-sm text-gray-400 font-semibold">Saldo</p>
+                                <p id="budgetRemaining" class="text-2xl font-bold text-green-400">R$ 0,00</p>
                             </div>
                         </div>
                     </div>
                     <div class="flex-1">
-                        <div class="mb-2 flex justify-between text-sm font-semibold text-gray-700 dark:text-gray-200">
+                        <div class="mb-2 flex justify-between text-sm font-semibold text-gray-400">
                             <span>Progresso de Gastos</span>
                             <span id="budgetPercentage">0%</span>
                         </div>
-                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-8 overflow-hidden">
-                            <div id="budgetBar" class="h-full bg-gradient-to-r from-green-500 to-blue-500 transition-all duration-500 flex items-center justify-center text-white font-bold text-sm" style="width: 0%">
+                        <div class="w-full bg-zinc-800 rounded-full h-8 overflow-hidden">
+                            <div id="budgetBar" class="h-full bg-white transition-all duration-500 flex items-center justify-center text-black font-bold text-sm" style="width: 0%">
                                 <span id="budgetBarText"></span>
                             </div>
                         </div>
-                        <p id="budgetStatus" class="text-sm text-gray-600 dark:text-gray-300 mt-2 text-center font-medium"></p>
+                        <p id="budgetStatus" class="text-sm text-gray-400 mt-2 text-center font-medium"></p>
                     </div>
                 </div>
             </div>
             
             <!-- Formulário de Adicionar Gasto -->
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 mb-6 border border-gray-200 dark:border-gray-700">
-                <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Adicionar Novo Gasto</h2>
+            <div class="bg-zinc-900 rounded-2xl shadow-xl p-6 mb-6 border border-zinc-800">
+                <h2 class="text-2xl font-semibold mb-4 text-white">Adicionar Novo Gasto</h2>
                 <form id="expenseForm" class="grid grid-cols-1 md:grid-cols-5 gap-4">
                     <input type="text" id="description" placeholder="Descrição do gasto" required 
-                           class="border-2 border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400">
+                           class="border-2 border-zinc-700 bg-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-zinc-600 text-white placeholder-gray-500">
                     <input type="number" id="amount" placeholder="Valor (R$)" step="0.01" required 
-                           class="border-2 border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400">
+                           class="border-2 border-zinc-700 bg-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-zinc-600 text-white placeholder-gray-500">
                     <select id="category" required 
-                            class="border-2 border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                            class="border-2 border-zinc-700 bg-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-zinc-600 text-white">
                         <option value="">Selecione a categoria</option>
                         <option value="Alimentação">Alimentação</option>
                         <option value="Transporte">Transporte</option>
@@ -160,9 +150,9 @@
                         <option value="Outros">Outros</option>
                     </select>
                     <input type="date" id="date" required 
-                           class="border-2 border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                           class="border-2 border-zinc-700 bg-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-zinc-600 text-white">
                     <button type="submit" 
-                            class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl px-6 py-3 transition-all duration-300 hover:scale-105 shadow-md">
+                            class="bg-white hover:bg-gray-200 text-black font-semibold rounded-xl px-6 py-3 transition-all duration-300 shadow-md">
                         Adicionar
                     </button>
                 </form>
@@ -170,45 +160,45 @@
 
             <!-- Resumo de Gastos -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div class="bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/40 dark:to-red-800/40 rounded-2xl shadow-lg p-6 border-2 border-red-200 dark:border-red-700">
-                    <h3 class="text-gray-700 dark:text-gray-200 text-sm font-bold mb-2 uppercase tracking-wide">Total Gasto</h3>
-                    <p class="text-4xl font-bold text-red-700 dark:text-red-300" id="totalExpense">R$ 0,00</p>
+                <div class="bg-zinc-900 rounded-2xl shadow-lg p-6 border border-zinc-800">
+                    <h3 class="text-gray-400 text-sm font-bold mb-2 uppercase tracking-wide">Total Gasto</h3>
+                    <p class="text-4xl font-bold text-white" id="totalExpense">R$ 0,00</p>
                 </div>
-                <div class="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/40 dark:to-orange-800/40 rounded-2xl shadow-lg p-6 border-2 border-orange-200 dark:border-orange-700">
-                    <h3 class="text-gray-700 dark:text-gray-200 text-sm font-bold mb-2 uppercase tracking-wide">Gastos Este Mês</h3>
-                    <p class="text-4xl font-bold text-orange-700 dark:text-orange-300" id="monthExpense">R$ 0,00</p>
+                <div class="bg-zinc-900 rounded-2xl shadow-lg p-6 border border-zinc-800">
+                    <h3 class="text-gray-400 text-sm font-bold mb-2 uppercase tracking-wide">Gastos Este Mês</h3>
+                    <p class="text-4xl font-bold text-white" id="monthExpense">R$ 0,00</p>
                 </div>
-                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/40 dark:to-yellow-800/40 rounded-2xl shadow-lg p-6 border-2 border-yellow-200 dark:border-yellow-700">
-                    <h3 class="text-gray-700 dark:text-gray-200 text-sm font-bold mb-2 uppercase tracking-wide">Gastos Hoje</h3>
-                    <p class="text-4xl font-bold text-yellow-700 dark:text-yellow-300" id="todayExpense">R$ 0,00</p>
+                <div class="bg-zinc-900 rounded-2xl shadow-lg p-6 border border-zinc-800">
+                    <h3 class="text-gray-400 text-sm font-bold mb-2 uppercase tracking-wide">Gastos Hoje</h3>
+                    <p class="text-4xl font-bold text-white" id="todayExpense">R$ 0,00</p>
                 </div>
             </div>
 
             <!-- Gráficos -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-200 dark:border-gray-700">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Gastos por Categoria</h3>
+                <div class="bg-zinc-900 rounded-2xl shadow-xl p-6 border border-zinc-800">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Gastos por Categoria</h3>
                     <canvas id="categoryChart"></canvas>
                 </div>
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-200 dark:border-gray-700">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Gastos por Dia (Últimos 7 dias)</h3>
+                <div class="bg-zinc-900 rounded-2xl shadow-xl p-6 border border-zinc-800">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Gastos por Dia (Últimos 7 dias)</h3>
                     <canvas id="dailyChart"></canvas>
                 </div>
             </div>
 
             <!-- Modal de Dia Detalhado -->
-            <div id="dayModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
-                    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-white">
+            <div id="dayModal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4">
+                <div class="bg-zinc-900 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden border border-zinc-800">
+                    <div class="bg-black p-6 text-white border-b border-zinc-800">
                         <div class="flex justify-between items-start">
                             <div>
                                 <h3 id="modalDayTitle" class="text-2xl font-bold"></h3>
-                                <p id="modalDaySubtitle" class="text-indigo-100 mt-1"></p>
+                                <p id="modalDaySubtitle" class="text-gray-400 mt-1"></p>
                             </div>
-                            <button onclick="closeDayModal()" class="text-white hover:text-gray-200 text-3xl font-bold leading-none">&times;</button>
+                            <button onclick="closeDayModal()" class="text-white hover:text-gray-300 text-3xl font-bold leading-none">&times;</button>
                         </div>
                         <div class="mt-4">
-                            <p class="text-sm text-indigo-100">Total do dia</p>
+                            <p class="text-sm text-gray-400">Total do dia</p>
                             <p id="modalDayTotal" class="text-3xl font-bold"></p>
                         </div>
                     </div>
@@ -218,29 +208,29 @@
 
             <!-- Calendário e Lista -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-200 dark:border-gray-700">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Calendário de Gastos</h3>
+                <div class="bg-zinc-900 rounded-2xl shadow-xl p-6 border border-zinc-800">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Calendário de Gastos</h3>
                     <div id="calendar" class="mb-4">
                         <div class="flex justify-between items-center mb-4">
-                            <button id="prevMonth" class="bg-indigo-100 hover:bg-indigo-200 dark:bg-indigo-800 dark:hover:bg-indigo-700 rounded-lg px-4 py-2 text-gray-900 dark:text-white transition-all duration-300 font-semibold">Anterior</button>
-                            <h4 id="currentMonth" class="text-lg font-bold text-gray-900 dark:text-white capitalize"></h4>
-                            <button id="nextMonth" class="bg-indigo-100 hover:bg-indigo-200 dark:bg-indigo-800 dark:hover:bg-indigo-700 rounded-lg px-4 py-2 text-gray-900 dark:text-white transition-all duration-300 font-semibold">Próximo</button>
+                            <button id="prevMonth" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg px-4 py-2 text-white transition-all duration-300 font-semibold">Anterior</button>
+                            <h4 id="currentMonth" class="text-lg font-bold text-white capitalize"></h4>
+                            <button id="nextMonth" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg px-4 py-2 text-white transition-all duration-300 font-semibold">Próximo</button>
                         </div>
                         <div class="grid grid-cols-7 gap-2 text-center mb-2">
-                            <div class="font-bold text-gray-900 dark:text-gray-100 text-sm">Dom</div>
-                            <div class="font-bold text-gray-900 dark:text-gray-100 text-sm">Seg</div>
-                            <div class="font-bold text-gray-900 dark:text-gray-100 text-sm">Ter</div>
-                            <div class="font-bold text-gray-900 dark:text-gray-100 text-sm">Qua</div>
-                            <div class="font-bold text-gray-900 dark:text-gray-100 text-sm">Qui</div>
-                            <div class="font-bold text-gray-900 dark:text-gray-100 text-sm">Sex</div>
-                            <div class="font-bold text-gray-900 dark:text-gray-100 text-sm">Sáb</div>
+                            <div class="font-bold text-white text-sm">Dom</div>
+                            <div class="font-bold text-white text-sm">Seg</div>
+                            <div class="font-bold text-white text-sm">Ter</div>
+                            <div class="font-bold text-white text-sm">Qua</div>
+                            <div class="font-bold text-white text-sm">Qui</div>
+                            <div class="font-bold text-white text-sm">Sex</div>
+                            <div class="font-bold text-white text-sm">Sáb</div>
                         </div>
                         <div id="calendarDays" class="grid grid-cols-7 gap-2 text-center"></div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-200 dark:border-gray-700">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Lista de Gastos</h3>
+                <div class="bg-zinc-900 rounded-2xl shadow-xl p-6 border border-zinc-800">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Lista de Gastos</h3>
                     <div id="expenseList" class="space-y-3 max-h-96 overflow-y-auto pr-2"></div>
                 </div>
             </div>
@@ -249,7 +239,6 @@
     </div>
 
     <script src="prog.js"></script>
-
 
 </body>
 </html>
